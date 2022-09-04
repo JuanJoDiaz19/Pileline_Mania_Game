@@ -21,8 +21,9 @@ public class Main {
                     "3. Salir\n");
             option = sc.nextInt();
             sc.nextLine();
+            executeOption(option);
         }while (option != 3);
-        executeOption(option);
+
     }
     public void executeOption(int option) {
         switch (option) {
@@ -56,6 +57,7 @@ public class Main {
     public void executeOptionGame(int option) {
         switch (option) {
             case 1:
+                addPipeline();
                 break;
             case 2:
                 break;
@@ -63,6 +65,22 @@ public class Main {
 
                 break;
         }
+    }
+
+    public void addPipeline() {
+        System.out.println("Ingrese la fila de la tuberia a ingresar:");
+        int row = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Ingrese la columna de la tuberia a ingresar:");
+        int column = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Ingrese el tipo de tuberia:\n" +
+                "1. ||\n"+
+                "2. =\n"+
+                "3. o");
+        int typePipeline = sc.nextInt();
+        sc.nextLine();
+        game.addPipeline(row, column, typePipeline);
     }
 
 

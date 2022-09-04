@@ -9,4 +9,8 @@ public class Game {
     public void initializeBoard(){
         board.initializeBoard();
     }
+
+    public void addPipeline(int row, int column, int type){
+        board.addPipeline(row, column, type);
+    }
 }

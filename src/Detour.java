@@ -1,5 +1,5 @@
 public class Detour extends Pipeline{
     public Detour(){
-        super.setCharacter('°');
+        super.setCharacter('o');
     }
 }
