@@ -1,5 +1,6 @@
 public class Drainage extends Pipeline{
-        public Drainage(){
+        public Drainage(int row, int column){
+            super(row,column);
             super.setCharacter('D');
         }
 }

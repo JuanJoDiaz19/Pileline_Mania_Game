@@ -61,8 +61,10 @@ public class Main {
                 break;
             case 2:
                 break;
-            case 3:
-
+            case 3  :
+                long knowTime= ((System.currentTimeMillis()-time)/1000);
+                game.addPlayer(name,calculateScore());
+                System.out.println("Saliendo de la partida");
                 break;
         }
     }
