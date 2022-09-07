@@ -1,3 +1,6 @@
+package ui;
+import model.Game;
+
 import java.util.Scanner;
 public class Main {
     public Scanner sc;
@@ -26,9 +29,11 @@ public class Main {
 
     }
     public void executeOption(int option) {
+            long time=0;
         switch (option) {
             case 1:
-                simulateGame();
+                time= System.currentTimeMillis();
+                simulateGame(time);
                 break;
             case 2:
                 break;
@@ -38,7 +43,7 @@ public class Main {
         }
     }
 
-    public void simulateGame() {
+    public void simulateGame(long time) {
         System.out.println("Ingrese su nombre de usuario:");
         String userName = sc.nextLine();
         game.initializeBoard();
@@ -50,16 +55,22 @@ public class Main {
                     "3. Salir\n");
             option = sc.nextInt();
             sc.nextLine();
-            executeOptionGame(option);
+            executeOptionGame(option, userName, time);
         }while (option != 3);
     }
 
-    public void executeOptionGame(int option) {
+    public void executeOptionGame(int option, String name, long time) {
         switch (option) {
             case 1:
                 addPipeline();
                 break;
             case 2:
+                if(game.simulateTable()) {
+                    System.out.println("La solucion es correcta");
+                } else {
+                    System.out.println("La solucion es incorrecta");
+                }
+                //option = 3;
                 break;
             case 3  :
                 long knowTime= ((System.currentTimeMillis()-time)/1000);
@@ -83,6 +94,10 @@ public class Main {
         int typePipeline = sc.nextInt();
         sc.nextLine();
         System.out.println(game.addPipeline(row, column, typePipeline));;
+    }
+
+    public int calculateScore(){
+        return 0;
     }
 
 

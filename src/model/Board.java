@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Random;
 
 public class Board {
@@ -5,6 +7,8 @@ public class Board {
     private Pipeline[][] map;
     private Pipeline head;
     private Pipeline tail;
+
+    private Pipeline drainage;
     public Board() {
         map = new Pipeline[8][8];
         r = new Random();
@@ -24,7 +28,8 @@ public class Board {
         map[coordinatesHX][coordinatesHY] = head;
 
         tail = head;
-        map[coordinatesTX] [coordinatesTY] = new Drainage(coordinatesTX, coordinatesTY);
+        drainage = new Drainage(coordinatesTX, coordinatesTY);
+        map[coordinatesTX] [coordinatesTY] = drainage;
 
         printTable();
     }
@@ -60,14 +65,14 @@ public class Board {
     public boolean addPipeline(int row, int column, int type) {
         if(tail instanceof Font) {
             if (type == 1 && (tail.getRow() -1 == row  || tail.getRow() + 1 == row ) && tail.getColumn() == column ) {
-                //Cuando se intenta añadir una tuberia de tipo Vertical
+                //Cuando se intenta añadir una tuberia de tipo model.Vertical
                 Vertical newPipeline = new Vertical(row, column);
 
                 addLast(newPipeline);
                 addPipelineToMatrix(newPipeline);
                 return true;
             } else if(type == 2 && (tail.getColumn()+1 == column  || tail.getColumn()-1 == column ) && tail.getRow() == row) {
-                //Cuando se intenta añadir uno Horizontal
+                //Cuando se intenta añadir uno model.Horizontal
                 Horizontal newPipeline = new Horizontal(row, column);
                 addLast(newPipeline);
                 addPipelineToMatrix(newPipeline);
@@ -100,6 +105,7 @@ public class Board {
                     Vertical newPipeline = new Vertical(row, column);
                     addLast(newPipeline);
                     addPipelineToMatrix(newPipeline);
+                    return true;
                 } else if (type == 3) {
                     Detour newPipeline = new Detour(row, column);
                     addLast(newPipeline);
@@ -111,17 +117,17 @@ public class Board {
             }
         } else if (tail instanceof Detour) {
             if (type == 2 && (tail.getColumn()+1 == column  || tail.getColumn()-1 == column ) && tail.getRow() == row && tail.getPrevious().getColumn() != column) {
-                //Cuando añade una pipeline Horizontal
+                //Cuando añade una pipeline model.Horizontal
                 Horizontal newPipeline = new Horizontal(row, column);
                 addLast(newPipeline);
                 addPipelineToMatrix(newPipeline);
                 return true;
             } else if(type == 1 && (tail.getRow() -1 == row  || tail.getRow() + 1 == row ) && tail.getColumn() == column && tail.getPrevious().getRow() != row) {
-                //Cuando añade una pipeline Vertical
+                //Cuando añade una pipeline model.Vertical
                 Vertical newPipeline = new Vertical(row, column);
                 addLast(newPipeline);
                 addPipelineToMatrix(newPipeline);
-                return false;
+                return true;
             } else {
                 return false;
             }
@@ -132,6 +138,24 @@ public class Board {
         return false;
     }
 
+    public boolean simulateTable() {
+        if (tail instanceof Horizontal) {
+            if ((tail.getColumn() + 1 == drainage.getColumn() || tail.getColumn()- 1 == drainage.getColumn()) && tail.getRow() == drainage.getRow()){
+                return true;
+            } else {
+                return false;
+            }
+        } else if (tail instanceof Vertical) {
+            if ((tail.getRow() + 1 == drainage.getRow() || tail.getRow()- 1 == drainage.getRow()) && tail.getColumn() == tail.getColumn()){
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     /*
     public boolean simulateGame() {
         return simulateGame(head);
@@ -139,9 +163,9 @@ public class Board {
     */
 
     /*
-    private boolean simulateGame(Pipeline current) {
-        if (current instanceof Font) {
-            if(map[current.getRow() + 1][current.getColumn() + 1] instanceof NoPipeline){
+    private boolean simulateGame(model.Pipeline current) {
+        if (current instanceof model.Font) {
+            if(map[current.getRow() + 1][current.getColumn() + 1] instanceof model.NoPipeline){
 
             }
         }

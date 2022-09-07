@@ -1,3 +1,5 @@
+package model;
+
 public class Game {
     private Player root;
     private Board board;
@@ -19,10 +21,15 @@ public class Game {
             return "No se pudo añadir la tuberia en esa posicion";
         }
     }
+
     public void addPlayer(String name, int score){
         Player a= new Player(name, score);
         addPlayer(a, root);
         return;
+    }
+
+    public boolean simulateTable() {
+        return board.simulateTable();
     }
 
     private void addPlayer(Player current, Player objetive){
