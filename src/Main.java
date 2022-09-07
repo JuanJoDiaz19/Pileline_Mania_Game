@@ -82,7 +82,7 @@ public class Main {
                 "3. o");
         int typePipeline = sc.nextInt();
         sc.nextLine();
-        game.addPipeline(row, column, typePipeline);
+        System.out.println(game.addPipeline(row, column, typePipeline));;
     }
 
 
