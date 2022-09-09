@@ -1,6 +1,5 @@
 package ui;
 import model.Game;
-
 import java.util.Scanner;
 public class Main {
     public Scanner sc;
@@ -55,29 +54,33 @@ public class Main {
                     "3. Salir\n");
             option = sc.nextInt();
             sc.nextLine();
-            executeOptionGame(option, userName, time);
+            if (!executeOptionGame(option, userName, time)) {
+                option = 3;
+            }
         }while (option != 3);
     }
 
-    public void executeOptionGame(int option, String name, long time) {
+    public boolean executeOptionGame(int option, String name, long time){
         switch (option) {
             case 1:
                 addPipeline();
-                break;
+                return true;
             case 2:
                 if(game.simulateTable()) {
                     System.out.println("La solucion es correcta");
+                    long knowTime= ((System.currentTimeMillis()-time)/1000);
+                    game.addPlayer(name,calculateScore(knowTime));
+                    return false;
                 } else {
                     System.out.println("La solucion es incorrecta");
+                    return true;
                 }
-                //option = 3;
-                break;
-            case 3  :
-                long knowTime= ((System.currentTimeMillis()-time)/1000);
-                game.addPlayer(name,calculateScore());
+            case 3 :
+
                 System.out.println("Saliendo de la partida");
-                break;
+                return false;
         }
+        return false;
     }
 
     public void addPipeline() {
