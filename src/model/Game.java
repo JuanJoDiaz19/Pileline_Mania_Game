@@ -21,6 +21,15 @@ public class Game {
             return "No se pudo añadir la tuberia en esa posicion";
         }
     }
+    public String changePipeline(int row, int column, int type) {
+        if (board.changePipeline(row, column, type)) {
+            board.printTable();
+            return "Se añadió correctamente la tuberia";
+        } else {
+            board.printTable();
+            return "No se pudo añadir la tuberia en esa posicion";
+        }
+    }
 
     public void addPlayer(String name, int score){
         Player a= new Player(name, score);

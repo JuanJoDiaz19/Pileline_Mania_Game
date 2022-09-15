@@ -14,7 +14,11 @@ public class Main {
 
     }
     public void execute(){
-        System.out.println("Bienvenido al juego de PipeLine");
+        System.out.println("===========================\n" +
+                "||                       ||\n" +
+                "|| WELCOME TO PIPE MANIA ||\n" +
+                "||                       ||\n" +
+                "===========================\n");
         int option;
         do {
             System.out.println("Elija una de las siguientes opciones:\n"+
@@ -63,7 +67,9 @@ public class Main {
     public boolean executeOptionGame(int option, String name, long time){
         switch (option) {
             case 1:
-                addPipeline();
+                System.out.println("Seleccione una de las siguientes opciones:\n1. Poner tuberia nueva\n2. Cambiar una tuberia" );
+                int ans = sc.nextInt();
+                addPipeline(ans);
                 return true;
             case 2:
                 if(game.simulateTable()) {
@@ -83,7 +89,7 @@ public class Main {
         return false;
     }
 
-    public void addPipeline() {
+    public void addPipeline(int option) {
         System.out.println("Ingrese la fila de la tuberia a ingresar:");
         int row = sc.nextInt();
         sc.nextLine();
@@ -96,12 +102,20 @@ public class Main {
                 "3. o");
         int typePipeline = sc.nextInt();
         sc.nextLine();
-        System.out.println(game.addPipeline(row, column, typePipeline));;
+
+        if (option == 1) {
+            System.out.println(game.addPipeline(row, column, typePipeline));
+        } else {
+            System.out.println(game.changePipeline(row, column, typePipeline));
+        }
+
     }
 
     public int calculateScore(){
         return 0;
     }
+
+
 
 
 

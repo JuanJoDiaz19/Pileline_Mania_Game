@@ -24,6 +24,10 @@ public class Board {
         int coordinatesTX =  r.nextInt(8);
         int coordinatesTY =  r.nextInt(8);
 
+        if (coordinatesHX == coordinatesHY  && coordinatesHY == coordinatesTX && coordinatesTX == coordinatesTY) {
+            coordinatesHX = r.nextInt(8);
+        }
+
         head = new Font(coordinatesHX, coordinatesHY);
         map[coordinatesHX][coordinatesHY] = head;
 
