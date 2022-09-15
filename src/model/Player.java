@@ -23,7 +23,7 @@ public class Player {
         this.right = right;
     }
 
-    public Player(String name, int score) {
+    public Player(String name, double score)  {
         this.name = name;
         this.score= score;
     }

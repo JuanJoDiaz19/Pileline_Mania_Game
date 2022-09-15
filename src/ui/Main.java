@@ -28,17 +28,19 @@ public class Main {
             option = sc.nextInt();
             sc.nextLine();
             executeOption(option);
+            //listo
         }while (option != 3);
 
     }
-    public void executeOption(int option) {
-            long time=0;
+    public void executeOption(int option){
+        long time=0;
         switch (option) {
             case 1:
                 time= System.currentTimeMillis();
                 simulateGame(time);
                 break;
             case 2:
+               game.inorderR();
                 break;
             case 3:
                 System.out.println("Gracias por utilizar el juego :)");
@@ -46,10 +48,11 @@ public class Main {
         }
     }
 
-    public void simulateGame(long time) {
+    public void simulateGame(long time){
         System.out.println("Ingrese su nombre de usuario:");
         String userName = sc.nextLine();
         game.initializeBoard();
+
         int option;
         do {
             System.out.println("Seleccione la opcion a realizar:");
@@ -111,8 +114,9 @@ public class Main {
 
     }
 
-    public int calculateScore(){
-        return 0;
+    public double calculateScore(Long time){
+        int amount= game.getBoard().AmountPipe(0);
+        return (amount * 100) -(60-time) * 10;
     }
 
 

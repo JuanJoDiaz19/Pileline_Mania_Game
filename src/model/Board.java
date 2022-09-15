@@ -160,6 +160,89 @@ public class Board {
         }
     }
 
+    public int AmountPipe(int count){
+        return AmountPipe(head,count);
+    }
+
+    private int AmountPipe(Pipeline p, int count){
+        if(p==null){
+            return count;
+        }
+
+        return AmountPipe(p.getNext(),count+1);
+    }
+
+    public boolean changePipeline(int row, int column, int type) {
+        Pipeline newPipeline;
+        if (type == 1) {
+            newPipeline =  new Vertical(row, column);
+        } else if (type == 2) {
+            newPipeline = new Horizontal(row, column);
+        } else {
+            newPipeline = new Detour(row, column);
+        }
+        return changePipeline(head, row, column, newPipeline);
+    }
+
+    private boolean changePipeline(Pipeline current, int row, int column, Pipeline insert) {
+        if (current == null) {
+            return false;
+        }
+        if(current.getRow() == row && current.getColumn() == column) {
+            if(current instanceof Detour) {
+                if (current.getPrevious() instanceof Horizontal && insert instanceof Horizontal) {
+                    Pipeline prev = current.getPrevious();
+                    prev.setNext(insert);
+                    insert.setPrevious(prev);
+                    tail = insert;
+                    map[insert.getRow()][insert.getColumn()] = insert;
+                    changeToNoPipeline(current.getNext());
+                    return true;
+
+                } else if (current.getPrevious() instanceof  Vertical && insert instanceof Vertical) {
+                    Pipeline prev = current.getPrevious();
+                    prev.setNext(insert);
+                    insert.setPrevious(prev);
+                    tail = insert;
+                    map[insert.getRow()][insert.getColumn()] = insert;
+                    changeToNoPipeline(current.getNext());
+                    return true;
+                }
+            } else if (current instanceof Vertical && !(current.getPrevious() instanceof Detour) && insert instanceof Detour ) {
+                //MIRAR CUANDO ANTES HAY UN DETOUR
+                Pipeline prev = current.getPrevious();
+                prev.setNext(insert);
+                insert.setPrevious(prev);
+                tail = insert;
+                map[insert.getRow()][insert.getColumn()] = insert;
+                changeToNoPipeline(current.getNext());
+                return true;
+
+            } else if (current instanceof  Horizontal && !(current.getPrevious() instanceof Detour) && insert instanceof Detour) {
+                Pipeline prev = current.getPrevious();
+                prev.setNext(insert);
+                insert.setPrevious(prev);
+                tail = insert;
+                map[insert.getRow()][insert.getColumn()] = insert;
+                changeToNoPipeline(current.getNext());
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return changePipeline(current.getNext(), row, column, insert);
+        }
+        return false;
+    }
+
+    public void changeToNoPipeline(Pipeline current) {
+        if(current == null) {
+            return;
+        }
+        map[current.getRow()][current.getColumn()] = new NoPipeline(current.getRow(), current.getColumn());
+        changeToNoPipeline(current.getNext());
+    }
+
     /*
     public boolean simulateGame() {
         return simulateGame(head);

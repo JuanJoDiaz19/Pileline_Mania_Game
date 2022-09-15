@@ -31,7 +31,7 @@ public class Game {
         }
     }
 
-    public void addPlayer(String name, int score){
+    public void addPlayer(String name, double score) {
         Player a= new Player(name, score);
         addPlayer(a, root);
         return;
@@ -74,5 +74,30 @@ public class Game {
             return;
         }
 
+    }
+    public Player getMin(Player current){
+        if(current.getLeft() == null){
+            return current;
+        }
+        return getMin(current.getLeft());
+    }
+
+    public Board getBoard(){
+        return board;
+    }
+
+    public void inorderR(){
+         inorderR(root);
+    }
+    private void inorderR(Player current){
+
+        if(current == null){
+            return;
+        }
+        inorderR(current.getRight());
+        System.out.println(current.getName()+" "+ current.getScore());
+        inorderR(current.getLeft());
+
+        return;
     }
 }
